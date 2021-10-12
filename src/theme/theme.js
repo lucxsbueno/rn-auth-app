@@ -12,6 +12,7 @@ export default {
         success: '#4caf50',
         text: '#3E474F',
         border: '#F0F3F8',
+        placeholder: '#ccd0d9'
     },
     fonts: {
         light: 'Nunito-Light',

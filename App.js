@@ -19,7 +19,7 @@ import { ThemeProvider } from 'styled-components';
  * 
  * Screens
  */
-import Signin from './src/screens/Signin';
+import Signup from './src/screens/Signup';
 
 export default function App() {
 
@@ -36,7 +36,7 @@ export default function App() {
 
    return (
       <ThemeProvider theme={theme}>
-         <Signin/>
+         <Signup/>
          <StatusBar style="dark" backgroundColor="#F5F7FA" translucent/>
       </ThemeProvider>
    );

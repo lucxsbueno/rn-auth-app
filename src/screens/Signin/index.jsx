@@ -1,50 +1,42 @@
 import React, { useState } from 'react';
 
-import { ActivityIndicator } from 'react-native';
-import { useTheme } from 'styled-components';
-
-import SnackBar from 'react-native-snackbar-component'
+import { PrimaryButton } from '../../components/PrimaryButton/';
+import { Input } from '../../components/Input';
+import { Alert } from '../../components/Alert';
 
 import {
     Container,
     Title,
+    Message,
     Form,
     Subtitle,
-    PrimaryButton,
-    TextButton,
     Link,
     Hightlight,
     Inputs,
-    FakeInput,
-    Label,
-    Input,
-    Footer,
+    Footer
 } from './styles';
 
 export default function Signin() {
-    const theme = useTheme();
 
     const [loading, setLoading] = useState(false);
-    const [snackBar, setSnackBar] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    //Alert
+    const [message, setMessage] = useState("");
+    const [type, setType] = useState("success");
+    const [isOpen, setOpen] = useState(false);
 
     function signin() {
         setLoading(true);
 
         setTimeout(() => {
-            const data = { email, password }
-    
-            console.log(data);
+
+            setMessage("Aproveite nossas promoções de dia das crianças, use o cupom #CRIANCA20.");
+            setOpen(true);
+            setType("promo");
 
             setLoading(false);
-
-            setSnackBar(true);
-
-            setTimeout(() => {
-                setSnackBar(false);
-            }, 5000);
         }, 3000);
     }
 
@@ -52,51 +44,40 @@ export default function Signin() {
         <Container>
             <Form>
                 <Title>Signin to your app</Title>
-                <Link>
-                    <Subtitle>Not a member? signup now <Hightlight>here</Hightlight>.</Subtitle>
-                </Link>
+                <Link><Subtitle>Not a member? signup now <Hightlight>here</Hightlight>.</Subtitle></Link>
+
+                <Alert open={isOpen} message={message} type={type}/>
 
                 <Inputs>
-                    <FakeInput>
-                        <Input placeholder="youremail@example.com" onChangeText={setEmail}/>    
-                        <Label>E-mail address</Label>
-                    </FakeInput>
-
-                    <FakeInput>
-                        <Input placeholder="" onChangeText={setPassword} />    
-                        <Label>Secret password</Label>
-                    </FakeInput>
+                    <Input placeholder="youremail@example.com" label="E-mail" onChangeText={setEmail} />
+                    <Input placeholder="" label="Secret password" isSecure={true} onChangeText={setPassword} />
                 </Inputs>
 
                 <Footer>
-                    {!email || !password ?
-                        <PrimaryButton enabled={false} onPress={signin}>
-                            <TextButton>Next</TextButton>
-                        </PrimaryButton>
-                        :
+                    { !email || !password ?
+                        <PrimaryButton 
+                            name="Next"
+                            loading={false}
+                            enabled={false}
+                            onPress={() => {}}/> : loading ?
 
-                        loading ?
-                                <PrimaryButton enabled={false} onPress={signin}>
-                                    <ActivityIndicator color={theme.colors.light} size="large"/>
-                                </PrimaryButton>
-                                :
-                                <PrimaryButton enabled={true} onPress={signin}>
-                                    <TextButton>Next</TextButton>
-                                </PrimaryButton>
-                    }       
+                                <PrimaryButton
+                                    name="Next"
+                                    loading={true}
+                                    enabled={false}
+                                    onPress={() => {}}/> :
+
+                                <PrimaryButton
+                                    name="Next"
+                                    loading={false}
+                                    enabled={true}
+                                    onPress={signin}/> }       
                 </Footer>
 
                 <Link>
                     <Subtitle style={{textAlign: 'center'}}><Hightlight>I forgot my password</Hightlight></Subtitle>
                 </Link>
             </Form>
-
-            <SnackBar
-                visible={snackBar}
-                accentColor={theme.colors.secondary}
-                textMessage="Hello There!"
-                actionHandler={()=>{console.log("snackbar button clicked!")}}
-                actionText="let's go"/>
         </Container>
     );
 }
