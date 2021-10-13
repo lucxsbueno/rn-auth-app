@@ -7,7 +7,6 @@ import { Alert } from '../../components/Alert';
 import {
     Container,
     Title,
-    Message,
     Form,
     Subtitle,
     Link,
@@ -16,7 +15,7 @@ import {
     Footer
 } from './styles';
 
-export default function Signin() {
+export default function Signin({navigation}) {
 
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
@@ -44,7 +43,7 @@ export default function Signin() {
         <Container>
             <Form>
                 <Title>Signin to your app</Title>
-                <Link><Subtitle>Not a member? signup now <Hightlight>here</Hightlight>.</Subtitle></Link>
+                <Link onPress={() => navigation.navigate('Signup')}><Subtitle>Not a member? signup now <Hightlight>here</Hightlight>.</Subtitle></Link>
 
                 <Alert open={isOpen} message={message} type={type}/>
 

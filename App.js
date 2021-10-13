@@ -14,12 +14,7 @@ import {
 import AppLoading from 'expo-app-loading';
 
 import { ThemeProvider } from 'styled-components';
-
-/**
- * 
- * Screens
- */
-import Signup from './src/screens/Signup';
+import { StackRoutes } from './src/routes';
 
 export default function App() {
 
@@ -36,7 +31,7 @@ export default function App() {
 
    return (
       <ThemeProvider theme={theme}>
-         <Signup/>
+         <StackRoutes/>
          <StatusBar style="dark" backgroundColor="#F5F7FA" translucent/>
       </ThemeProvider>
    );

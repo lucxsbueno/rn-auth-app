@@ -18,7 +18,7 @@ import {
     Footer
 } from './styles';
 
-export default function Signup() {
+export default function Signup({navigation}) {
 
     const [loading, setLoading] = useState(false);
 
@@ -49,7 +49,7 @@ export default function Signup() {
 
     return (
         <Container>
-            <BackButton/>
+            <BackButton onPress={() => navigation.goBack()} />
 
             <Form>
                 <Title>Signup to the best app</Title>

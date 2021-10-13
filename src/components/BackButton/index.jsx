@@ -5,10 +5,10 @@ import {
     Icon
 } from './styles';
 
-export function BackButton({navigation}) {
+export function BackButton({ onPress }) {
     return(
         <Container>
-            <Icon name="arrow-left" onPress={() => navigation.goBack()}/>
+            <Icon name="arrow-left" onPress={onPress}/>
         </Container>
     );
 }
