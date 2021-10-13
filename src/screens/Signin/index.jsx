@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { PrimaryButton } from '../../components/PrimaryButton/';
 import { Input } from '../../components/Input';
 import { Alert } from '../../components/Alert';
+
+import { connection } from '../../services/api';
 
 import {
     Container,
@@ -19,24 +21,59 @@ export default function Signin({navigation}) {
 
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [pass, setPass] = useState("");
 
     //Alert
     const [message, setMessage] = useState("");
     const [type, setType] = useState("success");
     const [isOpen, setOpen] = useState(false);
 
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                const response = await connection.get('/');
+                console.log(response.data);
+            } catch(error) {
+                setMessage("Não foi possível conectar com o servidor, verifique sua conexão com a internet.");
+                setOpen(true);
+                setType("error");
+            } finally {
+                //
+            }
+        }
+
+        fetchApi();
+    }, [])
+
+    function navigateToScreen(screen) {
+        navigation.navigate(screen);
+    }
+
     function signin() {
         setLoading(true);
 
-        setTimeout(() => {
+        const data = { email, pass }
 
-            setMessage("Aproveite nossas promoções de dia das crianças, use o cupom #CRIANCA20.");
-            setOpen(true);
-            setType("promo");
+        async function postApi() {
+            try {
+                const response = await connection.post('/users/signin', data);
+                console.log(response.data);
 
-            setLoading(false);
-        }, 3000);
+                setMessage(response.data.message);
+                setOpen(true);
+                setType("success");
+            } catch(error) {
+                console.log(error);
+
+                setMessage("Os dados informados não corresponde com a nossa base de dados.");
+                setOpen(true);
+                setType("error");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        postApi();
     }
 
     return (
@@ -49,22 +86,22 @@ export default function Signin({navigation}) {
 
                 <Inputs>
                     <Input placeholder="youremail@example.com" label="E-mail" onChangeText={setEmail} />
-                    <Input placeholder="" label="Secret password" isSecure={true} onChangeText={setPassword} />
+                    <Input placeholder="" label="Secret password" isSecure={true} onChangeText={setPass} />
                 </Inputs>
 
                 <Footer>
-                    { !email || !password ?
+                    { !email || !pass ?
                         <PrimaryButton 
                             name="Next"
                             loading={false}
                             enabled={false}
-                            onPress={() => {}}/> : loading ?
+                            onPress={signin}/> : loading ?
 
                                 <PrimaryButton
                                     name="Next"
                                     loading={true}
                                     enabled={false}
-                                    onPress={() => {}}/> :
+                                    onPress={signin}/> :
 
                                 <PrimaryButton
                                     name="Next"

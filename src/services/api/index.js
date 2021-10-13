@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const connection = axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: 'http://192.168.0.110:8000/',
     timeout: 10000
 });
 
-export default connection;
+export { connection }

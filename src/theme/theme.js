@@ -18,6 +18,7 @@ export default {
         light: 'Nunito-Light',
         regular: 'Nunito-Regular',
         medium: 'Nunito-Medium',
+        black: 'Nunito-Black',
         bold: 'Nunito-Bold'
     }
 }

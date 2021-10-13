@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 import React from 'react';
 
 import theme from './src/theme/theme';
@@ -8,6 +8,7 @@ import {
    Nunito_300Light,
    Nunito_400Regular,
    Nunito_600SemiBold,
+   Nunito_900Black,
    Nunito_700Bold,
 } from '@expo-google-fonts/nunito';
 
@@ -22,7 +23,8 @@ export default function App() {
       'Nunito-Light':  Nunito_300Light,
       'Nunito-Regular': Nunito_400Regular,
       'Nunito-Medium': Nunito_600SemiBold,
-      'Nunito-Bold': Nunito_700Bold
+      'Nunito-Black': Nunito_900Black,
+      'Nunito-Bold': Nunito_700Bold,
    });
 
    if (!fontsLoaded) { 
@@ -32,7 +34,7 @@ export default function App() {
    return (
       <ThemeProvider theme={theme}>
          <StackRoutes/>
-         <StatusBar style="dark" backgroundColor="#F5F7FA" translucent/>
+         <StatusBar barStyle="dark-content" backgroundColor={theme.colors.background} translucent/>
       </ThemeProvider>
    );
 }
