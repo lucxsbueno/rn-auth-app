@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
+import { Keyboard } from 'react-native';
+
 import { PrimaryButton } from '../../components/PrimaryButton/';
+import { BackButton } from '../../components/BackButton';
 import { Input } from '../../components/Input';
 import { Alert } from '../../components/Alert';
 
@@ -30,13 +33,15 @@ export default function Signup() {
     const [isOpen, setOpen] = useState(false);
 
     function signin() {
+        Keyboard.dismiss();
+
         setLoading(true);
 
         setTimeout(() => {
 
-            setMessage("Your registration was successful.");
+            setMessage("Os dados passados não batem com o que temos salvo aqui. Que tal tentar novamente?");
             setOpen(true);
-            setType("success");
+            setType("danger");
 
             setLoading(false);
         }, 3000);
@@ -44,6 +49,8 @@ export default function Signup() {
 
     return (
         <Container>
+            <BackButton/>
+
             <Form>
                 <Title>Signup to the best app</Title>
                 <Link><Subtitle>If your are a member, signow <Hightlight>here</Hightlight>.</Subtitle></Link>

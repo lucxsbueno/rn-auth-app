@@ -23,6 +23,8 @@ export const Icon = styled.Text`
 `;
 
 export const Text = styled.Text`
+    flex: 1;
+
     margin-top: 2px;
     font-size: ${RFValue(14)}px;
     color: ${(props) => String(props.color)};
